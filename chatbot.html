@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PyBot - Web Chatbot</title>
+  <style>
+    body {
+      font-family: "monospace", monospace;
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 500px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #111111;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 100px;
+      font-weight: 300;
+    }
+
+    #chatbox {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .user-message, .bot-message {
+      max-width: 75%;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .user-message {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+    }
+
+    .bot-message {
+      background-color: #f1f0f0;
+      align-self: flex-start;
+    }
+
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    #userInput {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      background-color: #0078ff;
+      color: white;
+      border: none;
+      padding: 0 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #005fcc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <header>piyush</header>
+    <div id="chatbox"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+
+      if (input.includes("hello") || input.includes("hi")) {
+        return "Hey there! How can I help you today?";
+      } 
+      else if (input.includes("how are you")) {
+        return "I'm doing great! Thanks for asking 😄";
+      } 
+      else if (input.includes("how are u")) {
+        return "I'm doing great! Thanks for asking 😄";
+      } 
+
+      else if (input.includes("your name")) {
+        return "I'm PyBot — your friendly web chatbot!";
+      } 
+      else if (input.includes("joke")) {
+        return "Why did the computer go to therapy? It had too many bytes of emotional baggage 😂";
+      } 
+      else if (input.includes("bye")) {
+        return "Goodbye! Have a nice day 👋";
+      } 
+      else if (input.includes("weather")) {
+        return "I'm not sure, but I hope it's sunny where you are ☀️";
+      } 
+      else {
+        return "Hmm... I didn't understand that. Try asking something else!";
+      }
+    }
+
+    function sendMessage() {
+      const userInput = document.getElementById("userInput");
+      const chatbox = document.getElementById("chatbox");
+      const message = userInput.value.trim();
+      if (message === "") return;
+
+      // Add user message
+      chatbox.innerHTML += `<div class="user-message">You: ${message}</div>`;
+
+      // Get bot response
+      const botReply = getBotResponse(message);
+      setTimeout(() => {
+        chatbox.innerHTML += `<div class="bot-message">piyush: ${botReply}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }, 400);
+
+      userInput.value = "";
+    }
+  </script>
+
+</body>
+</html>
